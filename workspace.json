@@ -78,14 +78,16 @@
       "projectType": "application",
       "targets": {
         "build": {
+          "executor": "@nrwl/workspace:run-commands",
           "outputs": [
             "dist/packages"
           ],
           "options": {
-            "commands": [],
+            "commands": [
+              "nx run athmovil:build.all"
+            ],
             "parallel": false
-          },
-          "executor": "@nrwl/workspace:run-commands"
+          }
         },
         "focus": {
           "outputs": [
@@ -101,6 +103,51 @@
         }
       },
       "sourceRoot": ""
+    },
+    "athmovil": {
+      "root": "packages/athmovil",
+      "projectType": "library",
+      "sourceRoot": "packages/athmovil",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/packages/athmovil",
+            "tsConfig": "packages/athmovil/tsconfig.json",
+            "packageJson": "packages/athmovil/package.json",
+            "main": "packages/athmovil/index.d.ts",
+            "assets": [
+              "packages/athmovil/*.md",
+              "packages/athmovil/index.d.ts",
+              "LICENSE",
+              {
+                "glob": "**/*",
+                "input": "packages/athmovil/platforms/",
+                "output": "./platforms/"
+              }
+            ]
+          }
+        },
+        "build.all": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx run athmovil:build",
+              "node tools/scripts/build-finish.ts athmovil"
+            ],
+            "parallel": false
+          }
+        },
+        "focus": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              "nx g @nativescript/plugin-tools:focus-packages athmovil"
+            ],
+            "parallel": false
+          }
+        }
+      }
     }
   },
   "cli": {

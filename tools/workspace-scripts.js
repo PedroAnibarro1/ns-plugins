@@ -57,12 +57,19 @@ module.exports = {
 			},
 		},
 		'⚙️': {
-			script: `npx cowsay "@nativescript/* packages will keep your ⚙️ cranking"`,
-			description: '_____________  @nativescript/*  _____________',
+			script: `npx cowsay "@emstudio/* packages will keep your ⚙️ cranking"`,
+			description: '_____________  @emstudio/*  _____________',
 		},
 		// packages
 		// build output is always in dist/packages
-		'@nativescript': {
+		'@emstudio': {
+			// @emstudio/athmovil
+			'athmovil': {
+				build: {
+					script: 'nx run athmovil:build.all',
+					description: '@emstudio/athmovil: Build',
+				},
+			},
 			'build-all': {
 				script: 'nx run all:build',
 				description: 'Build all packages',
@@ -73,6 +80,10 @@ module.exports = {
 			description: '_____________  Focus (VS Code supported)  _____________',
 		},
 		focus: {
+			'athmovil': {
+				script: 'nx run athmovil:focus',
+				description: 'Focus on @emstudio/athmovil',
+			},
 			reset: {
 				script: 'nx run all:focus',
 				description: 'Reset Focus',
