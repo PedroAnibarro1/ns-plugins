@@ -1,18 +1,15 @@
 /* Include.gradle configuration: http://docs.nativescript.org/plugins/plugins#includegradle-specification */
 
-repositories {
-    maven { url 'https://jitpack.io' }
+android {
+    // Some other stuffs
+    configurations {
+        all*.exclude module: 'athmovil-checkout-release' 
+    }    
 }
 
 dependencies {
     // Describe plugin native Android dependencies like
     // implementation "groupName:pluginName:ver" 
-    // EXAMPLE: implementation "com.facebook.fresco:fresco:0.9.0+"    
-    implementation 'androidx.annotation:annotation:1.2.0'
-	implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-    releaseImplementation files('./athmovil-checkout-release.aar')
+    // EXAMPLE: implementation "com.facebook.fresco:fresco:0.9.0+"        
+    releaseImplementation files('../libs/athmovil-checkout-release.aar')
 }
