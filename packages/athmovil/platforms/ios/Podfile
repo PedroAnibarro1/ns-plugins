@@ -1,2 +1,2 @@
 platform :ios, '14.0'
-pod 'athmovil-checkout'
+pod 'athmovil-checkout', '~> 4.2.1'
