@@ -1,11 +1,93 @@
 # @emstudio/\* plugins
 
+Workspace de monorepo para desarrollar y mantener plugins de NativeScript.
+
+## Plugins Disponibles
+
+- [@emstudio/athmovil](packages/athmovil/README.md) - Integración de pagos con ATH Móvil
+
+## Requisitos Previos
+
+Antes de comenzar, asegúrate de tener instalado:
+
+- **Node.js** 12+ y npm/yarn
+- **NativeScript CLI**: `npm install -g nativescript`
+- **Para iOS**: macOS con Xcode y CocoaPods (`sudo gem install cocoapods`)
+- **Para Android**: Android Studio y Android SDK configurado
+
+## Setup Inicial
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/PedroAnibarro1/ns-plugins.git
+cd ns-plugins
 ```
+
+### 2. Instalar dependencias
+
+```bash
 npm run setup
+```
+
+Este comando:
+- Limpia instalaciones previas
+- Configura yarn para ignorar versiones de engines
+- Establece npm como gestor de paquetes
+- Instala todas las dependencias del workspace
+- Configura git hooks (Husky)
+- Instala ts-patch para soporte de TypeScript
+
+### 3. Verificar instalación
+
+```bash
 npm start
 ```
 
-- [@emstudio/athmovil](packages/athmovil/README.md)
+Esto abrirá un menú interactivo con todas las opciones disponibles para desarrollo.
+
+## Estructura del Proyecto
+
+```
+ns-plugins/
+├── packages/           # Plugins del workspace
+│   └── athmovil/      # Plugin ATH Móvil
+├── apps/              # Aplicaciones demo
+│   ├── demo/          # Demo NativeScript Core
+│   └── demo-angular/  # Demo Angular
+├── tools/             # Herramientas y scripts
+└── package.json       # Configuración del workspace
+```
+
+## Desarrollo
+
+### Ejecutar apps demo
+
+```bash
+npm start
+```
+
+Desde el menú interactivo puedes:
+- Ejecutar las apps demo en iOS/Android
+- Compilar los plugins
+- Ejecutar tests
+- Limpiar builds
+
+### Desarrollo de un plugin específico
+
+```bash
+npm start
+```
+
+Selecciona la opción "focus" para el plugin que deseas desarrollar. Esto aislará el plugin y actualizará las apps demo para trabajar solo con ese plugin.
+
+### Agregar un nuevo plugin
+
+```bash
+npm run add
+```
+
+Sigue las instrucciones en pantalla para agregar un nuevo plugin al workspace.
 
 # How to use?
 
