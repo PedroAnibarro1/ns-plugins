@@ -36,36 +36,48 @@ export class Athmovil extends AthmovilCommon {
       amPayment.items = this.getNativeItemsFrom(payment.items);
     }
 
-    const handler = ATHMPaymentHandler.alloc().initOnCompletedOnExpiredOnCancelledOnException(
-      (response: ATHMPaymentResponse) => {
-        // Pago completado
-        const referenceNumber = response.status.referenceNumber;
-        const dailyTransactionID = response.status.dailyTransactionID;
-        const date = response.status.date;
-        
-        // Información del cliente
-        const customerName = response.customer.name;
-        const customerPhone = response.customer.phoneNumber;
-        const customerEmail = response.customer.email;
+    const onCompleted = (response: ATHMPaymentResponse) => {
+      this.getInstance().delegate?.onCompletePayment(response?.status?.referenceNumber || '');
+    };
 
-        this.getInstance().delegate.onCompletePayment(referenceNumber);
-      },
-      (response: ATHMPaymentResponse) => {
-        // Pago expirado
-        this.getInstance().delegate.onExpiredPayment(response.status.referenceNumber);
-      },
-      (response: ATHMPaymentResponse) => {
-        // Pago fallido
-        this.getInstance().delegate.onCancelledPayment(response.status.referenceNumber);
-      },
-      (error: ATHMPaymentError) => {
-        // Error en el pago
-        const errorMessage = error.isRequestError ? 
-          "Error en la solicitud de pago" : 
-          "Error en la respuesta del pago";
-        this.getInstance().delegate.onPaymentException(errorMessage, error.failureReason);
-      }
-    );
+    const onExpired = (response: ATHMPaymentResponse) => {
+      this.getInstance().delegate?.onExpiredPayment(response?.status?.referenceNumber || '');
+    };
+
+    const onCancelled = (response: ATHMPaymentResponse) => {
+      this.getInstance().delegate?.onCancelledPayment(response?.status?.referenceNumber || '');
+    };
+
+    // SDKs modernos exponen estado "failed" separado de "cancelled".
+    // Lo mapeamos al callback de cancelación para mantener comportamiento del host app.
+    const onFailed = (response: ATHMPaymentResponse) => {
+      this.getInstance().delegate?.onCancelledPayment(response?.status?.referenceNumber || '');
+    };
+
+    const onException = (error: ATHMPaymentError) => {
+      const errorMessage = error?.isRequestError
+        ? 'Error en la solicitud de pago'
+        : 'Error en la respuesta del pago';
+      const description = error?.failureReason || error?.errorDescription || '';
+      this.getInstance().delegate?.onPaymentException(errorMessage, description);
+    };
+
+    const nativeHandler = ATHMPaymentHandler.alloc() as any;
+    const handler: ATHMPaymentHandler =
+      typeof nativeHandler.initOnCompletedOnExpiredOnCancelledOnFailedOnException === 'function'
+        ? nativeHandler.initOnCompletedOnExpiredOnCancelledOnFailedOnException(
+            onCompleted,
+            onExpired,
+            onCancelled,
+            onFailed,
+            onException
+          )
+        : nativeHandler.initOnCompletedOnExpiredOnCancelledOnException(
+            onCompleted,
+            onExpired,
+            onCancelled,
+            onException
+          );
 
     const request = ATHMPaymentRequest.alloc().initWithAccountSchemePayment(
       businessAccount,
