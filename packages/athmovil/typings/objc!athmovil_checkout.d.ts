@@ -108,7 +108,11 @@ declare class ATHMPaymentHandler extends NSObject {
 
 	constructor(o: { onCompleted: (p1: ATHMPaymentResponse) => void; onExpired: (p1: ATHMPaymentResponse) => void; onCancelled: (p1: ATHMPaymentResponse) => void; onException: (p1: ATHMPaymentError) => void; });
 
+	constructor(o: { onCompleted: (p1: ATHMPaymentResponse) => void; onExpired: (p1: ATHMPaymentResponse) => void; onCancelled: (p1: ATHMPaymentResponse) => void; onFailed: (p1: ATHMPaymentResponse) => void; onException: (p1: ATHMPaymentError) => void; });
+
 	initOnCompletedOnExpiredOnCancelledOnException(onCompleted: (p1: ATHMPaymentResponse) => void, onExpired: (p1: ATHMPaymentResponse) => void, onCancelled: (p1: ATHMPaymentResponse) => void, onException: (p1: ATHMPaymentError) => void): this;
+
+	initOnCompletedOnExpiredOnCancelledOnFailedOnException(onCompleted: (p1: ATHMPaymentResponse) => void, onExpired: (p1: ATHMPaymentResponse) => void, onCancelled: (p1: ATHMPaymentResponse) => void, onFailed: (p1: ATHMPaymentResponse) => void, onException: (p1: ATHMPaymentError) => void): this;
 }
 
 declare class ATHMPaymentHandlerDictionary extends NSObject {
@@ -119,7 +123,11 @@ declare class ATHMPaymentHandlerDictionary extends NSObject {
 
 	constructor(o: { onCompleted: (p1: NSDictionary<any, any>) => void; onExpired: (p1: NSDictionary<any, any>) => void; onCancelled: (p1: NSDictionary<any, any>) => void; onException: (p1: ATHMPaymentError) => void; });
 
+	constructor(o: { onCompleted: (p1: NSDictionary<any, any>) => void; onExpired: (p1: NSDictionary<any, any>) => void; onCancelled: (p1: NSDictionary<any, any>) => void; onFailed: (p1: NSDictionary<any, any>) => void; onException: (p1: ATHMPaymentError) => void; });
+
 	initOnCompletedOnExpiredOnCancelledOnException(onCompleted: (p1: NSDictionary<any, any>) => void, onExpired: (p1: NSDictionary<any, any>) => void, onCancelled: (p1: NSDictionary<any, any>) => void, onException: (p1: ATHMPaymentError) => void): this;
+
+	initOnCompletedOnExpiredOnCancelledOnFailedOnException(onCompleted: (p1: NSDictionary<any, any>) => void, onExpired: (p1: NSDictionary<any, any>) => void, onCancelled: (p1: NSDictionary<any, any>) => void, onFailed: (p1: NSDictionary<any, any>) => void, onException: (p1: ATHMPaymentError) => void): this;
 }
 
 declare class ATHMPaymentItem extends NSObject {

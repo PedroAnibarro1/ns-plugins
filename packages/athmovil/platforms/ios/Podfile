@@ -1,2 +1,2 @@
 platform :ios, '14.0'
-pod 'athmovil-checkout', '~> 4.2.1'
+pod 'athmovil-checkout', :git => 'https://github.com/evertec/athmovil-ios-sdk.git', :tag => '6.1.1'

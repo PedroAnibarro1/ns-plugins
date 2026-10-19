@@ -418,7 +418,7 @@ interface AMTransactionListener {
 ## Versión del SDK
 
 - **Android**: Incluido en `athmovil-checkout-release.aar`
-- **iOS**: `athmovil-checkout ~> 4.2.1` (via CocoaPods)
+- **iOS**: `athmovil-checkout` 6.1.1 via CocoaPods (`:git` + tag `6.1.1` from evertec/athmovil-ios-sdk)
 
 ## Soporte
 
